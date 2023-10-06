@@ -1,0 +1,71 @@
+<template>
+    <main class="auth-wrapper">
+ 
+        <form class="auth-form" @submit.prevent="handleSubmit">
+            <h1>
+                <span>ToDo</span>
+                <strong>List</strong>
+            </h1>
+            <h2 class="h3 mb-4 fw-normal">Please sign in</h2>
+            <div class="form-floating mb-2">
+                <input type="email" class="form-control" :class="{ 'is-invalid': errors.email && errors.email[0] }" v-model="form.email" id="email" placeholder="name@example.com" autocomplete="on"/>
+                <label for="email">Email</label>
+                <div class="invalid-feedback" v-if="errors.email && errors.email[0]">
+                    {{ errors.email && errors.email[0] }}
+                </div>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="password" class="form-control" :class="{ 'is-invalid': errors.password && errors.password[0] }" v-model="form.password" id="password" placeholder="Password" autocomplete="on"/>
+                <label for="password">Password</label>
+                <div class="invalid-feedback" v-if="errors.password && errors.password[0]">
+                    {{ errors.password && errors.password[0] }}
+                </div>
+            </div>
+
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+        </form>
+
+    </main>
+</template>
+
+<script setup>
+    import { storeToRefs } from 'pinia';
+    import { useRouter } from "vue-router"
+    import { ref ,onMounted} from "vue";
+    import { useAuthStore } from "../stores/auth";
+    const store = useAuthStore()
+    const router = useRouter();
+    const { errors } = storeToRefs(store)
+    const { handleLogin , fetchUser} = store
+    const form = ref({
+        email:'',
+        password:''
+    });
+
+    const handleSubmit = async() =>{
+            await handleLogin(form.value)
+            if(store.isLoggedIn){
+                router.push({
+                    name:'tasks'
+                })
+            }
+            
+    
+      
+    };
+</script>
+<style scoped>
+.auth-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 60vh;
+    margin-top: 2rem;
+}
+
+.auth-form {
+    width: 400px;
+}
+</style>
