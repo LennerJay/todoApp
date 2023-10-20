@@ -27,7 +27,6 @@ export const useTaskStore = defineStore('taskStore', ()=>{
     };
     
     const handleComptedTask = async (task) => {
-        console.log(task)
         const {data: completedTask} = await completeTask(task.id, {
             is_completed: task.is_completed
         });
