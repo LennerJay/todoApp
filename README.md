@@ -2,7 +2,7 @@
 Steps to run the app
 
 ----REST-API----
-  in the root directory(click the rest-api folder), copy and pase the .env.example then rename the ".env copy.example" into .env
+  in the root directory(click the rest-api folder), copy and pase the .env.example then rename the ".env copy.example" into .env <br>
   In the TERMINAL LOG 
   type cd rest-api and enter
   type composer update and enter (wait untill it finishes installing, it may take a while)
